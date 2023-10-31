@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}Funcionário{% endblock %}
+
+{% block content %}
+    <h1>Funcionários</h1>
+    
+    <div class="row justify-content-center ">
+        <div class="card col-md-9 p-0 mt-6 bg-light p-4">
+            <div class="">
+                <form>
+                    <div class="row">
+                        <h3>Cadastro de Funcionários</h3>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="input-group input-group-outline my-3">
+                                <label class="form-label">Nome</label>
+                                <input type="email" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group input-group-outline my-3">
+                                <label class="form-label">Matrícula</label>
+                                <input type="email" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group input-group-outline my-3">
+                                <label class="form-label">CPF</label>
+                                <input type="text" class="form-control"  id="cpf">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="input-group input-group-outline my-3">
+                                <label class="form-label">Telefone</label>
+                                <input type="text" class="form-control" id="telefone">
+                                
+                            </div>
+                            
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group input-group-outline my-3">
+                                <label class="form-label">Senha</label>
+                                <input type="password" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group input-group-static mb-4">
+                                <label for="selectGroup" class="ms-0">Grupo</label>
+                                <select class="form-control" id="selectGroup">
+                                    <option>Atendente</option>
+                                    <option>Caixa</option>
+                                    <option>Administrador</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="mt-4 w-100 d-flex justify-content-between">
+                <button type="button" class="btn btn-outline-info col-md-2">Voltar</button>
+                <button type="button" class="btn bg-gradient-success col-md-2">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+<!--
+    id_funcionario: int = None
+    nome: str
+    matricula: str
+    cpf: str
+    telefone: str = None
+    grupo: int
+    senha: str = None
+-->

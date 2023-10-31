@@ -14,8 +14,11 @@ def formFuncionario():
 
 @bp_funcionario.route('/', methods=['GET', 'POST'])
 def listaFuncionario():
-    response = requests.get(ENDPOINT_FUNCIONARIO, headers = HEADERS_API)
-    result = response.json()
-    if (response.status_code != 200):
-        raise Exception(result[0])
-    return render_template('listaFuncionario.html', result=result[0])
+    try:
+        response = requests.get(ENDPOINT_FUNCIONARIO, headers = HEADERS_API)
+        result = response.json()
+        if (response.status_code != 200):
+            raise Exception(result[0])
+        return render_template('listaFuncionario.html', result=result[0])
+    except Exception as e:
+        return render_template('listaFuncionario.html', msgErro=e.args[0])

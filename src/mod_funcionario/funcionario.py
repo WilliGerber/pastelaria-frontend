@@ -21,4 +21,4 @@ def listaFuncionario():
             raise Exception(result[0])
         return render_template('listaFuncionario.html', result=result[0])
     except Exception as e:
-        return render_template('formFuncionario.html', msgErro=e.args[0])
+        return render_template('listaFuncionario.html', msgErro=e.args[0])

@@ -41,9 +41,10 @@
                                     <p class="text-xs text-secondary mb-0">{{ row['valor_unitario'] }}</p>
                                 </td>
                                 <td class="align-middle">
-                                <a  href="{{ url_for('funcionario.formFuncionario') }}" class="text-secondary font-weight-normal text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                    Edit
-                                </a>
+                                    <form action="{{ url_for('produto.formEditProduto') }}" method="POST" name="formEdit{{ row['id_produto'] }}">
+                                        <input type="hidden" name="id" value="{{ row['id_produto'] }}">
+                                        <button type="submit" name="formEditProduto"> <i class="fas fa-edit"></i></button>
+                                    </form>
                                 </td>
                             </tr> 
                         {% endfor %}

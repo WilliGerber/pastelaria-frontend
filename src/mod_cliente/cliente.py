@@ -1,6 +1,8 @@
 from flask import Blueprint, jsonify, redirect, render_template, request, url_for
 import requests
 from settings import HEADERS_API, ENDPOINT_CLIENTE
+from mod_login.login import validaSessao
+
 
 
 bp_cliente = Blueprint('cliente', __name__, url_prefix="/cliente", template_folder='templates')
@@ -10,11 +12,13 @@ bp_cliente = Blueprint('cliente', __name__, url_prefix="/cliente", template_fold
 #     return render_template('listaCliente.html'), 200
 
 @bp_cliente.route('/form')
+@validaSessao
 def formCliente():
     return render_template('formCliente.html'), 200
 
 
 @bp_cliente.route('/', methods=['GET', 'POST'])
+@validaSessao
 def listaCliente():
     try:
         response = requests.get(ENDPOINT_CLIENTE, headers = HEADERS_API)
@@ -26,6 +30,7 @@ def listaCliente():
         return render_template('listaCliente.html', msgErro=e.args[0])
         
 @bp_cliente.route('/insert', methods=['POST'])
+@validaSessao
 def insert():
     try:
         # dados enviados via FORM
@@ -54,6 +59,7 @@ def insert():
         return render_template('listaCliente.html', msgErro=e.args[0])
     
 @bp_cliente.route('/edit', methods=['POST'])
+@validaSessao
 def edit():
     try:
         # dados enviados via FORM
@@ -77,6 +83,7 @@ def edit():
         return render_template('formCliente.html', msgErro=e.args[0])
     
 @bp_cliente.route("/form-edit-cliente", methods=['POST'])
+@validaSessao
 def formEditCliente():
     try:
         id_cliente = request.form['id']
@@ -91,6 +98,7 @@ def formEditCliente():
     
     
 @bp_cliente.route('/delete', methods=['POST'])
+@validaSessao
 def delete():
     try:
         # dados enviados via FORM

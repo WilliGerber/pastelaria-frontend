@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template
 import requests
+from mod_login.login import validaSessao
 from settings import HEADERS_API, ENDPOINT_PRODUTO
 
 
@@ -10,10 +11,12 @@ bp_produto = Blueprint('produto', __name__, url_prefix="/produto", template_fold
 #     return render_template('listaProduto.html'), 200
 
 @bp_produto.route('/form')
+@validaSessao
 def formProduto():
     return render_template('formProduto.html'), 200
 
 @bp_produto.route('/', methods=['GET', 'POST'])
+@validaSessao
 def listaProduto():
     try:
         response = requests.get(ENDPOINT_PRODUTO, headers = HEADERS_API)

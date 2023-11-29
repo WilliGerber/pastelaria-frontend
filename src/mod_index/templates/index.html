@@ -4,6 +4,6 @@
 
 {% block content %}
     <h1>Index</h1>
-    <p class="important">Seja bem vindo!</p>
+    <p class="important">Seja bem vindo, {{ session['login']['grupo'] }} <b>{{ session['login']['nome'] }}!</p>
     
 {% endblock %}

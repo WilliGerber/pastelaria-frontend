@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, redirect, render_template, request, url_for
 import requests
 from settings import HEADERS_API, ENDPOINT_FUNCIONARIO
+from mod_login.login import validaSessao
 
 bp_funcionario = Blueprint('funcionario', __name__, url_prefix="/funcionario", template_folder='templates')
 
@@ -9,10 +10,12 @@ bp_funcionario = Blueprint('funcionario', __name__, url_prefix="/funcionario", t
 #     return render_template('listaFuncionario.html'), 200
 
 @bp_funcionario.route('/form')
+@validaSessao
 def formFuncionario():
     return render_template('formFuncionario.html'), 200
 
 @bp_funcionario.route('/', methods=['GET', 'POST'])
+@validaSessao
 def listaFuncionario():
     try:
         response = requests.get(ENDPOINT_FUNCIONARIO, headers = HEADERS_API)
@@ -23,7 +26,23 @@ def listaFuncionario():
     except Exception as e:
         return render_template('listaFuncionario.html', msgErro=e.args[0])
     
+@bp_funcionario.route('/', methods=['POST'])
+@validaSessao
+def getFuncionarioByCPF():
+    try:
+        headers = HEADERS_API
+        headers['cpf'] = request.form['cpf']
+        headers['senha'] = request.form['senha']
+        response = requests.get(ENDPOINT_FUNCIONARIO, headers = headers)
+        result = response.json()
+        if (response.status_code != 200):
+            raise Exception(result[0])
+        return render_template('listaFuncionario.html', result=result[0])
+    except Exception as e:
+        return render_template('listaFuncionario.html', msgErro=e.args[0])
+    
 @bp_funcionario.route('/insert', methods=['POST'])
+@validaSessao
 def insert():
     try:
         # dados enviados via FORM
@@ -52,6 +71,7 @@ def insert():
         return render_template('listaFuncionario.html', msgErro=e.args[0])
     
 @bp_funcionario.route('/edit', methods=['POST'])
+@validaSessao
 def edit():
     try:
         # dados enviados via FORM
@@ -75,6 +95,7 @@ def edit():
         return render_template('listaFuncionario.html', msgErro=e.args[0])
     
 @bp_funcionario.route("/form-edit-funcionario", methods=['POST'])
+@validaSessao
 def formEditFuncionario():
     try:
         id_funcionario = request.form['id']
@@ -88,6 +109,7 @@ def formEditFuncionario():
         return render_template('listaFuncionario.html', msgErro=e.args[0])
     
 @bp_funcionario.route('/delete', methods=['POST'])
+@validaSessao
 def delete():
     try:
         # dados enviados via FORM
